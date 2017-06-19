@@ -8,10 +8,7 @@ An Ansible role to install [pyenv](https://github.com/yyuu/pyenv).
 Requirements
 ------------
 
-This role works on OS X and Debian-based OSes. If using OS X, make sure you have
-[Homebrew](http://brew.sh/) installed before running the role. If you're looking
-for a role to handle it for you, check out
-[dirn.homebrew](https://github.com/dirn/ansible-homebrew).
+This role works on OS X and Debian-based OSes.
 
 Role Variables
 --------------
@@ -49,8 +46,7 @@ root:
 > This is useful if you want a different version of Python than you use
 > elsewhere.
 
-To install [virtualenv](https://github.com/yyuu/pyenv-virtualenv) and
-[virtualenvwrapper](https://github.com/yyuu/pyenv-virtualenvwrapper):
+To install [virtualenv](https://github.com/yyuu/pyenv-virtualenv):
 
     pyenv_virtualenv: true
 
