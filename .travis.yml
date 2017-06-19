@@ -8,22 +8,19 @@ os:
 install:
   - pip install ansible
 
-  # Add ansible.cfg to pick up roles path.
-  - "printf '[defaults]\\nroles_path = ../' > ansible.cfg"
-
 script:
   # Check the syntax.
   - ansible-playbook -i tests/inventory tests/tests.yml --syntax-check
 
   # Run the role.
-  - ansible-playbook -i tests/inventory tests/tests.yml --connection=local --sudo
+  - ansible-playbook -i tests/inventory tests/tests.yml
 
   # Check the files.
-  - grep -Fxq "$(pyenv init -)" ~/.bashrc
+  - grep -Fxq "\$(pyenv init -)" ~/.bashrc
 
   # Check for idempotence.
   - >
-    ansible-playbook -i tests/inventory tests/tests.yml --connection=local --sudo
+    ansible-playbook -i tests/inventory tests/tests.yml
     | grep -q 'changed=0.*failed=0'
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
