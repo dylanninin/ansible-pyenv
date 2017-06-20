@@ -4,18 +4,13 @@ cache: pip
 
 python: "2.7"
 
-os:
-  - linux
-  - osx
+os: linux
 
 # Python runtime is not yet available on OS X · Issue, #2312 https://github.com/travis-ci/travis-ci/issues/2312
 matrix:
   include:
-    - language: generic
+    - language: python
       os: osx
-      before_install:
-        - brew update
-        - brew install python
 
 install:
   - pip install ansible
