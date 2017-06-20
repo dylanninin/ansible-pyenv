@@ -8,12 +8,14 @@
   with_items: "{{ pyenv_versions }}"
 
 - include: versions.yml
-  versions: "{{ pyenv_default_versions }}"
-  dest: "{{ pyenv_root }}/version"
+  vars:
+    versions: "{{ pyenv_default_versions }}"
+    dest: "{{ pyenv_root }}/version"
 
 - include: versions.yml
-  versions: "{{ pyenv_project_versions }}"
-  dest: "{{ pyenv_project_root }}/.python-version"
+  vars:
+    versions: "{{ pyenv_project_versions }}"
+    dest: "{{ pyenv_project_root }}/.python-version"
 
 - name: Add pyenv to run commands
   blockinfile:
