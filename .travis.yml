@@ -2,14 +2,13 @@ language: python
 
 cache: pip
 
-python: "2.7"
-
-os: linux
-
 # Python runtime is not yet available on OS X · Issue, #2312 https://github.com/travis-ci/travis-ci/issues/2312
 matrix:
   include:
     - language: python
+      python: 2.7
+      os: linux
+    - language: generic
       os: osx
 
 install:
