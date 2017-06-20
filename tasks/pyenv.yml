@@ -7,11 +7,15 @@
 
 # FIXME: Debian or Darwin should use the same installation way for simplicity and consistency
 - name: Install
-  git: repo=https://github.com/yyuu/pyenv.git dest={{ pyenv_root }}
+  git:
+    repo: https://github.com/yyuu/pyenv.git
+    dest: "{{ pyenv_root }}"
 
 # FIXME: Do not include pyenv-virtualenvwrapper
 - name: Install virtualenv
-  git: repo=https://github.com/yyuu/{{ item }}.git dest={{ pyenv_root }}/plugins/{{ item }}
+  git:
+    repo: "https://github.com/yyuu/{{ item }}.git"
+    dest: "{{ pyenv_root }}/plugins/{{ item }}"
   with_items:
     - pyenv-virtualenv
   when: pyenv_virtualenv

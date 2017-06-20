@@ -1,3 +1,5 @@
 ---
 - name: Set versions
-  template: src=../templates/versions.j2 dest={{ dest }}
+  template:
+    src: ../templates/versions.j2
+    dest: "{{ dest }}"
