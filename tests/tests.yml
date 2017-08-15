@@ -1,8 +1,16 @@
+#!/usr/bin/env ansible-playbook
 ---
 - hosts: localhost
   remote_user: root
   roles:
     - role: ../../ansible-pyenv
-      pyenv_versions: [3.4.3, 2.7.9]
-      pyenv_default_versions: [3.4.3]
-      pyenv_project_versions: [2.7.9]
+      pyenv_versions:
+        - 2.7.11
+        - 3.5.3
+      pyenv_project_versions:
+        - name: default
+          version: 3.5.3
+          root: '~'
+        - name: any_project
+          version: 3.5.3
+          root: ~/any_project

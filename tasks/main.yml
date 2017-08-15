@@ -1,26 +1,19 @@
 ---
 - include: pyenv.yml
+  tags:
+    - pyenv
 
-- name: Install versions
+- name: Install python versions
+  tags:
+    - versions
   command: "{{ pyenv_root }}/bin/pyenv install {{ item }}"
   args:
     creates: "{{ pyenv_root }}/versions/{{ item }}"
   with_items: "{{ pyenv_versions }}"
 
-- include: versions.yml
-  vars:
-    versions: "{{ pyenv_default_versions }}"
-    dest: "{{ pyenv_root }}/version"
-
-- include: versions.yml
-  vars:
-    versions: "{{ pyenv_project_versions }}"
-    dest: "{{ pyenv_project_root }}/.python-version"
-
-- name: Add pyenv to run commands
-  blockinfile:
-    path: "{{ pyenv_runcom }}"
-    marker: "# {mark} pyenv"
-    state: present
-    create: yes
-    content: "{{ lookup('template', 'templates/runcom.j2') }}"
+- include: project.yml
+  tags:
+    - projects
+  with_items: "{{ pyenv_project_versions }}"
+  loop_control:
+    loop_var: outer_project

@@ -1,0 +1,29 @@
+---
+- set_fact:
+    project: "{{ outer_project }}"
+
+- name: "Ensure project root: {{ project.root }}"
+  file:
+    path: "{{ project.root }}"
+    follow: yes
+    state: directory
+
+- name: "Set project python version: {{ project.root }}"
+  template:
+    src: ../templates/version.j2
+    dest: "{{ project.root }}/.python-version"
+
+- name: "Create project virtualenv: {{ project.root }}"
+  # TODO: Refine create project virtualenv
+  shell: >
+    {{ pyenv_root }}/bin/pyenv virtualenvs --bare --skip-aliases |
+    grep '{{ project.version }}/envs/{{ project.name }}-{{ project.version }}' ||
+    {{ pyenv_root }}/bin/pyenv virtualenv {{ project.version }} {{ project.name }}-{{ project.version }}
+
+- name: "Install project requirements: {{ project.root }}"
+  # TODO: Refine install project requirements
+  shell: >
+    cd {{ project.root }};
+    ls requirements.txt &&
+    {{ pyenv_root }}/versions/{{ project.version }}/envs/{{ project.name }}-{{ project.version }}/bin/pip install -r requirements.txt
+  ignore_errors: true
