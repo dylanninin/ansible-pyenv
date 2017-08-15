@@ -23,7 +23,8 @@
 - name: "Install project requirements: {{ project.root }}"
   # TODO: Refine install project requirements
   shell: >
-    cd {{ project.root }};
     ls requirements.txt &&
     {{ pyenv_root }}/versions/{{ project.version }}/envs/{{ project.name }}-{{ project.version }}/bin/pip install -r requirements.txt
+  args:
+    chdir: "{{ project.root }}"
   ignore_errors: true
