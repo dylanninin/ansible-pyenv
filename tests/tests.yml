@@ -7,10 +7,8 @@
       pyenv_versions:
         - 2.7.11
         - 3.5.3
+      pyenv_global_version: 3.5.3
       pyenv_project_versions:
-        - name: default
-          version: 3.5.3
-          root: '~'
         - name: any_project
           version: 3.5.3
           root: ~/any_project

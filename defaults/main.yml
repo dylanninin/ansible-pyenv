@@ -1,6 +1,8 @@
 ---
 pyenv_root: ~/.pyenv
-pyenv_runcom: ~/.bashrc
-pyenv_versions: []
+pyenv_runcom: ~/.bash_profile
+pyenv_versions:
+  - 3.5.3
+pyenv_global_version: 3.5.3
 pyenv_project_versions: []
 pyenv_virtualenv: true

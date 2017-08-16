@@ -24,7 +24,7 @@ script:
   - ansible-playbook -i tests/inventory tests/tests.yml
 
   # Check the files.
-  - grep -Fxq "$(pyenv init -)" ~/.bashrc
+  - grep -Fxq "$(pyenv init -)" ~/.bash_profile
 
   # Check for idempotence.
   - >

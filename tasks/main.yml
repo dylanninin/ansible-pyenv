@@ -11,6 +11,16 @@
     creates: "{{ pyenv_root }}/versions/{{ item }}"
   with_items: "{{ pyenv_versions }}"
 
+- name: Set global python version
+  tags:
+    - global
+  lineinfile:
+    path: "{{ pyenv_root }}/version"
+    regexp: "^{{ pyenv_global_version }}"
+    line: "{{ pyenv_global_version }}"
+    create: yes
+  when: pyenv_global_version is defined
+
 - include: project.yml
   tags:
     - projects
