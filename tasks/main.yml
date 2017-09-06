@@ -3,6 +3,11 @@
   tags:
     - pyenv
 
+- include: mirror.yml
+  tags:
+    - versions
+  when: pyenv_mirror is defined
+
 - name: Install python versions
   tags:
     - versions
