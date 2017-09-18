@@ -1,6 +1,4 @@
 - name: ensure pip root
-  tags:
-    - pip
   file:
     path: ~/.config/pip
     state: directory
@@ -8,8 +6,6 @@
     recurse: yes
 
 - name: ensure pip config
-  tags:
-    - pip
   vars:
     timeout: 600
     mirror: "{{ pyenv_pip_mirror }}"

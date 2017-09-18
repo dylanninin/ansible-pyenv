@@ -1,4 +1,12 @@
 ---
+- name: Install ansible requirements
+  pip:
+    name: "{{ item }}"
+  become: true
+  become_user: root
+  with_items:
+    - jmespath
+
 - include: pyenv.yml
   tags:
     - pyenv
