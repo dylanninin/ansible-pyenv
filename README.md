@@ -1,7 +1,7 @@
 pyenv
 =====
 
-[![Build Status](https://travis-ci.org/dirn/ansible-pyenv.svg?branch=master)](https://travis-ci.org/dirn/ansible-pyenv)
+[![Build Status](https://travis-ci.org/dylanninin/ansible-pyenv.svg?branch=master)](https://travis-ci.org/dylanninin/ansible-pyenv)
 
 An Ansible role to install [pyenv](https://github.com/yyuu/pyenv).
 
@@ -19,29 +19,25 @@ To set where pyenv will be installed:
 
     pyenv_root: ~/.pyenv
 
-To set the location of your projects:
-
-    pyenv_project_root: '~'
-
-> This is useful if you want a different version of Python than you use
-> elsewhere.
-
 To specify the name of the run commands file that will initialize pyenv:
 
-    pyenv_runcom: ~/.bashrc
+    pyenv_runcom: ~/.bash_profile
 
 To specify which versions of Python to install:
 
     pyenv_versions: []
 
-To specify the default versions of Python available:
+To specify the default version of global Python:
 
-    pyenv_default_versions: []
+    pyenv_global_version: 3.5.3
 
 To specify alternative default versions of Python available inside your projects
 root:
 
-    pyenv_project_versions: []
+    pyenv_project_versions:
+      - name: your_project_name
+        version: 3.5.3
+        root: /path/to/your/project
 
 > This is useful if you want a different version of Python than you use
 > elsewhere.
@@ -58,21 +54,20 @@ None.
 Example Playbook
 ----------------
 
-    - hosts: servers
+    - hosts: all
       roles:
-        - role: dirn.pyenv
-          pyenv_runcom: ~/.zshrc
+        - role: dylannninin.pyenv
+          pyenv_runcom: ~/.bash_profile
           pyenv_versions:
             - 2.7.9
             - 3.4.3
             - pypy-2.5.0
             - pypy3-2.4.0
-          pyenv_default_versions:
-            - 2.7.9
-            - pypy-2.5.0
+          pyenv_global_version: 3.5.3
           pyenv_project_versions:
-            - 3.4.3
-            - pypy3-2.4.0
+            - name: your_project_name
+              version: 3.5.3
+              root: /path/to/your/project
 
 License
 -------
@@ -83,3 +78,5 @@ Author Information
 ------------------
 
 This role was created by [Andy Dirnberger](https://github.com/dirn).
+
+And modified by [Dylan](https://github.com/dylanninin)
