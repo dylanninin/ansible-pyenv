@@ -29,6 +29,11 @@
     create: yes
   when: pyenv_global_version is defined
 
+- include: pip.yml
+  tags:
+    - pip
+  when: pyenv_pip_mirror is defined
+
 - include: project.yml
   tags:
     - projects

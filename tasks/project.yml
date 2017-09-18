@@ -26,6 +26,15 @@
     {{ pyenv_root }}/bin/pyenv virtualenv {{ project.version }} {{ project.name }}-{{ project.version }}
   when: r_virtualenv|failed
 
+- name: "Ensure project apt packages: {{ project.root }}"
+  become: true
+  become_user: root
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items: "{{ project.apts | default([]) }}"
+
 - name: "Ensure project requirements: {{ project.root }}/requirements.txt"
   file:
     path: "{{ project.root }}/requirements.txt"

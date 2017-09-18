@@ -6,3 +6,4 @@ pyenv_versions:
 pyenv_global_version: 3.5.3
 pyenv_project_versions: []
 pyenv_virtualenv: true
+pyenv_pip_mirror: https://pypi.python.org/pypi
