@@ -13,18 +13,28 @@
     src: ../templates/version.j2
     dest: "{{ project.root }}/.python-version"
 
-- name: "Create project virtualenv: {{ project.root }}"
-  # TODO: Refine create project virtualenv
+- name: "Ensure project virtualenv: {{ project.root }}"
   shell: >
     {{ pyenv_root }}/bin/pyenv virtualenvs --bare --skip-aliases |
-    grep '{{ project.version }}/envs/{{ project.name }}-{{ project.version }}' ||
-    {{ pyenv_root }}/bin/pyenv virtualenv {{ project.version }} {{ project.name }}-{{ project.version }}
-
-- name: "Install project requirements: {{ project.root }}"
-  # TODO: Refine install project requirements
-  shell: >
-    ls requirements.txt &&
-    {{ pyenv_root }}/versions/{{ project.version }}/envs/{{ project.name }}-{{ project.version }}/bin/pip install -r requirements.txt
-  args:
-    chdir: "{{ project.root }}"
+    grep '{{ project.version }}/envs/{{ project.name }}-{{ project.version }}'
+  changed_when: false
+  register: r_virtualenv
   ignore_errors: true
+
+- name: "Create project virtualenv: {{ project.root }}"
+  shell: >
+    {{ pyenv_root }}/bin/pyenv virtualenv {{ project.version }} {{ project.name }}-{{ project.version }}
+  when: r_virtualenv|failed
+
+- name: "Ensure project requirements: {{ project.root }}/requirements.txt"
+  file:
+    path: "{{ project.root }}/requirements.txt"
+    state: file
+  register: r_requrements
+  ignore_errors: true
+
+- name: "Install project requirements: {{ project.root }}/requirements.txt"
+  pip:
+    requirements: "{{ project.root }}/requirements.txt"
+    executable: "{{ pyenv_root }}/versions/{{ project.version }}/envs/{{ project.name }}-{{ project.version }}/bin/pip"
+  when: r_requrements|succeeded
