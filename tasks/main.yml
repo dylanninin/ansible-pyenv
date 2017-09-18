@@ -1,26 +1,42 @@
 ---
 - include: pyenv.yml
+  tags:
+    - pyenv
 
-- name: Install versions
+- include: mirror.yml
+  tags:
+    - versions
+  when: pyenv_mirror is defined
+
+- name: Install python versions
+  tags:
+    - versions
   command: "{{ pyenv_root }}/bin/pyenv install {{ item }}"
   args:
     creates: "{{ pyenv_root }}/versions/{{ item }}"
-  with_items: "{{ pyenv_versions }}"
+  with_items:
+    - "{{ pyenv_versions }}"
+    - "{{ pyenv_global_version }}"
+    - "{{ pyenv_project_versions|json_query('[*].version') }}"
 
-- include: versions.yml
-  vars:
-    versions: "{{ pyenv_default_versions }}"
-    dest: "{{ pyenv_root }}/version"
-
-- include: versions.yml
-  vars:
-    versions: "{{ pyenv_project_versions }}"
-    dest: "{{ pyenv_project_root }}/.python-version"
-
-- name: Add pyenv to run commands
-  blockinfile:
-    path: "{{ pyenv_runcom }}"
-    marker: "# {mark} pyenv"
-    state: present
+- name: Set global python version
+  tags:
+    - global
+  lineinfile:
+    path: "{{ pyenv_root }}/version"
+    regexp: "^{{ pyenv_global_version }}"
+    line: "{{ pyenv_global_version }}"
     create: yes
-    content: "{{ lookup('template', 'templates/runcom.j2') }}"
+  when: pyenv_global_version is defined
+
+- include: pip.yml
+  tags:
+    - pip
+  when: pyenv_pip_mirror is defined
+
+- include: project.yml
+  tags:
+    - projects
+  with_items: "{{ pyenv_project_versions }}"
+  loop_control:
+    loop_var: outer_project

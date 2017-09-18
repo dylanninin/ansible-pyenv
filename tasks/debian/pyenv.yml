@@ -3,7 +3,9 @@
   apt:
     pkg: "{{ item }}"
     state: present
+    #update_cache: yes
   become: true
+  become_user: root
   with_items:
     - make
     - build-essential

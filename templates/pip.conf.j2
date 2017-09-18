@@ -1,0 +1,7 @@
+# Per-user: ~/.config/pip/pip.conf
+[global]
+timeout = {{ timeout | default(600) }}
+index-url = {{ mirror }}
+[install]
+use-mirrors = true
+mirrors = {{ mirror }}

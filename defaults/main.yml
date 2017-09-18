@@ -1,11 +1,9 @@
 ---
 pyenv_root: ~/.pyenv
-pyenv_project_root: '~'
-
-pyenv_runcom: ~/.bashrc
-
-pyenv_versions: []
-pyenv_default_versions: []
+pyenv_runcom: ~/.bash_profile
+pyenv_versions:
+  - 3.5.3
+pyenv_global_version: 3.5.3
 pyenv_project_versions: []
-
 pyenv_virtualenv: true
+pyenv_pip_mirror: https://pypi.python.org/pypi
