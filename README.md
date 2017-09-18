@@ -31,6 +31,14 @@ To specify the default version of global Python:
 
     pyenv_global_version: 3.5.3
 
+To specify which mirror of Python src to download from:
+
+    pyenv_mirror: http://mirrors.sohu.com/python
+
+To specify which mirror of Python packages to download from:
+
+    pyenv_pip_mirror: https://pypi.douban.com/simple
+
 To specify alternative default versions of Python available inside your projects
 root:
 
@@ -38,6 +46,11 @@ root:
       - name: your_project_name
         version: 3.5.3
         root: /path/to/your/project
+        # the required apt packages.
+        apts:
+          - graphviz
+          - libgraphviz-dev
+          - pkg-config
 
 > This is useful if you want a different version of Python than you use
 > elsewhere.
@@ -57,6 +70,8 @@ Example Playbook
     - hosts: all
       roles:
         - role: dylannninin.pyenv
+          pyenv_mirror: http://mirrors.sohu.com/python
+          pyenv_pip_mirror: https://pypi.douban.com/simple
           pyenv_runcom: ~/.bash_profile
           pyenv_versions:
             - 2.7.9
@@ -68,6 +83,10 @@ Example Playbook
             - name: your_project_name
               version: 3.5.3
               root: /path/to/your/project
+              apts:
+                - graphviz
+                - libgraphviz-dev
+                - pkg-config
 
 License
 -------
