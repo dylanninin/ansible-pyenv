@@ -55,10 +55,6 @@ root:
 > This is useful if you want a different version of Python than you use
 > elsewhere.
 
-To install [virtualenv](https://github.com/yyuu/pyenv-virtualenv):
-
-    pyenv_virtualenv: true
-
 Dependencies
 ------------
 

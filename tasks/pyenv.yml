@@ -11,14 +11,12 @@
     repo: https://github.com/yyuu/pyenv.git
     dest: "{{ pyenv_root }}"
 
-# FIXME: Do not include pyenv-virtualenvwrapper
 - name: Install pyenv-virtualenv
   git:
     repo: "https://github.com/yyuu/{{ item }}.git"
     dest: "{{ pyenv_root }}/plugins/{{ item }}"
   with_items:
     - pyenv-virtualenv
-  when: pyenv_virtualenv
 
 - name: Add pyenv to run commands
   tags:
