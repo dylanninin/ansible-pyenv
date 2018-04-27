@@ -1,14 +1,14 @@
-- name: ensure pip root
+- name: Ensure pip root
   file:
     path: ~/.config/pip
     state: directory
     follow: yes
     recurse: yes
 
-- name: ensure pip config
+- name: Ensure pip config
   vars:
     timeout: 600
-    mirror: "{{ pyenv_pip_mirror }}"
+    mirror: "{{ pyenv_pypi_mirror }}"
   template:
     src: ../templates/pip.conf.j2
     dest: ~/.config/pip/pip.conf

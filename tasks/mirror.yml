@@ -1,12 +1,15 @@
 ---
-- name: "Ensure pyenv cache"
+- name: Ensure pyenv cache
   file:
     path: "{{ pyenv_root }}/cache"
     state: directory
     follow: yes
 
-- name: "Download python from mirror: {{ pyenv_mirror }}"
+- name: "Download python from mirror: {{ pyenv_python_mirror }}"
   get_url:
-    url: "{{ pyenv_mirror }}/{{ item }}/Python-{{ item }}.tar.xz"
+    url: "{{ pyenv_python_mirror }}/{{ item }}/Python-{{ item }}.tar.xz"
     dest: "{{ pyenv_root }}/cache/Python-{{ item }}.tar.xz"
-  with_items: "{{ pyenv_versions }}"
+  with_items:
+    - "{{ pyenv_versions }}"
+    - "{{ pyenv_global_version }}"
+    - "{{ pyenv_project_versions|json_query('[*].version') }}"

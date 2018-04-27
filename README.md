@@ -3,7 +3,7 @@ pyenv
 
 [![Build Status](https://travis-ci.org/dylanninin/ansible-pyenv.svg?branch=master)](https://travis-ci.org/dylanninin/ansible-pyenv)
 
-An Ansible role to install [pyenv](https://github.com/yyuu/pyenv).
+An Ansible role to install [pyenv](https://github.com/yyuu/pyenv), Python versions and projects requirements.
 
 Requirements
 ------------
@@ -33,11 +33,11 @@ To specify the default version of global Python:
 
 To specify which mirror of Python src to download from:
 
-    pyenv_mirror: http://mirrors.sohu.com/python
+    pyenv_python_mirror: http://mirrors.sohu.com/python
 
 To specify which mirror of Python packages to download from:
 
-    pyenv_pip_mirror: https://pypi.douban.com/simple
+    pyenv_pypi_mirror: https://pypi.douban.com/simple
 
 To specify alternative default versions of Python available inside your projects
 root:
@@ -46,19 +46,19 @@ root:
       - name: your_project_name
         version: 3.5.3
         root: /path/to/your/project
-        # the required apt packages.
+        # the required apt packages will be automatically installed.
         apts:
           - graphviz
           - libgraphviz-dev
           - pkg-config
 
-> This is useful if you want a different version of Python than you use
-> elsewhere.
+> This is useful if you want a different version of Python than you use elsewhere.
 
 Dependencies
 ------------
 
 None.
+
 
 Example Playbook
 ----------------
@@ -66,8 +66,8 @@ Example Playbook
     - hosts: all
       roles:
         - role: dylannninin.pyenv
-          pyenv_mirror: http://mirrors.sohu.com/python
-          pyenv_pip_mirror: https://pypi.douban.com/simple
+          pyenv_python_mirror: http://mirrors.sohu.com/python
+          pyenv_pypi_mirror: https://pypi.douban.com/simple
           pyenv_runcom: ~/.bash_profile
           pyenv_versions:
             - 2.7.9

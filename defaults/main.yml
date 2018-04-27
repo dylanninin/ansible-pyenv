@@ -5,4 +5,4 @@ pyenv_versions:
   - 3.5.3
 pyenv_global_version: 3.5.3
 pyenv_project_versions: []
-pyenv_pip_mirror: https://pypi.python.org/pypi
+pyenv_pypi_mirror: https://pypi.python.org/pypi

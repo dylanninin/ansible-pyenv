@@ -6,7 +6,7 @@
 - include: mirror.yml
   tags:
     - versions
-  when: pyenv_mirror is defined
+  when: pyenv_python_mirror is defined
 
 - name: Install python versions
   tags:
@@ -32,7 +32,7 @@
 - include: pip.yml
   tags:
     - pip
-  when: pyenv_pip_mirror is defined
+  when: pyenv_pypi_mirror is defined
 
 - include: project.yml
   tags:
